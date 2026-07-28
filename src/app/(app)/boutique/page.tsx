@@ -1,20 +1,8 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
 import { getBoutique } from "@/lib/data/boutiques";
 import { CreerBoutiqueForm } from "./CreerBoutiqueForm";
-import { DeconnexionButton } from "./DeconnexionButton";
 
 export default async function BoutiquePage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/connexion");
-  }
-
   const boutique = await getBoutique();
 
   return (
@@ -43,9 +31,6 @@ export default async function BoutiquePage() {
             <CreerBoutiqueForm />
           </>
         )}
-        <div className="mt-6">
-          <DeconnexionButton />
-        </div>
       </main>
     </div>
   );

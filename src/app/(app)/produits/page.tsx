@@ -1,18 +1,10 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
 import { getBoutique } from "@/lib/data/boutiques";
 import { listerProduits } from "@/lib/data/produits";
 import { AjouterProduitForm } from "./AjouterProduitForm";
 import { ProduitLigne } from "./ProduitLigne";
 
 export default async function ProduitsPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) redirect("/connexion");
-
   const boutique = await getBoutique();
   if (!boutique) redirect("/boutique");
 
