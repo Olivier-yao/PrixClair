@@ -6,8 +6,9 @@ import { construireRecuPaiement } from "@/lib/documents/recu";
 import { DIMENSIONS_DOCUMENT } from "@/lib/documents/commun";
 import { pngVersPdf } from "@/lib/pdf";
 
-export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  const apercu = new URL(request.url).searchParams.has("apercu");
 
   const supabase = await createClient();
   const {
@@ -24,6 +25,11 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
   const { width, height } = DIMENSIONS_DOCUMENT;
   const image = new ImageResponse(construireRecuPaiement(boutique, vente), { width, height });
   const pngBuffer = Buffer.from(await image.arrayBuffer());
+
+  if (apercu) {
+    return new Response(new Uint8Array(pngBuffer), { headers: { "Content-Type": "image/png" } });
+  }
+
   const pdfBuffer = await pngVersPdf(pngBuffer, width, height);
 
   return new Response(new Uint8Array(pdfBuffer), {
