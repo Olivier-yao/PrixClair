@@ -3,6 +3,8 @@ import { getBoutique } from "@/lib/data/boutiques";
 import { listerProduits } from "@/lib/data/produits";
 import { AjouterProduitForm } from "./AjouterProduitForm";
 import { ProduitLigne } from "./ProduitLigne";
+import { Conteneur } from "@/components/ui/Conteneur";
+import { EnTetePage } from "@/components/ui/EnTetePage";
 
 export default async function ProduitsPage() {
   const boutique = await getBoutique();
@@ -11,20 +13,18 @@ export default async function ProduitsPage() {
   const produits = await listerProduits(boutique.id);
 
   return (
-    <div className="flex flex-1 justify-center bg-zinc-50 px-6 py-8 dark:bg-black">
-      <main className="w-full max-w-sm space-y-6">
-        <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Mes produits</h1>
+    <Conteneur>
+      <EnTetePage titre="Mes produits" />
 
-        <AjouterProduitForm boutiqueId={boutique.id} />
+      <AjouterProduitForm boutiqueId={boutique.id} />
 
-        {produits.length > 0 && (
-          <ul className="space-y-3">
-            {produits.map((produit) => (
-              <ProduitLigne key={produit.id} produit={produit} />
-            ))}
-          </ul>
-        )}
-      </main>
-    </div>
+      {produits.length > 0 && (
+        <ul className="space-y-3">
+          {produits.map((produit) => (
+            <ProduitLigne key={produit.id} produit={produit} />
+          ))}
+        </ul>
+      )}
+    </Conteneur>
   );
 }

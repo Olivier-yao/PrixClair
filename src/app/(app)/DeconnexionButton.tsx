@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { lienDiscret } from "@/components/ui/styles";
 
 export function DeconnexionButton() {
   const router = useRouter();
@@ -15,7 +16,7 @@ export function DeconnexionButton() {
   }
 
   return (
-    <button type="button" onClick={seDeconnecter} className="text-sm text-zinc-500 underline">
+    <button type="button" onClick={seDeconnecter} className={lienDiscret}>
       Se deconnecter
     </button>
   );

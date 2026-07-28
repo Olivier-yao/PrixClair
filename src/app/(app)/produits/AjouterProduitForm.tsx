@@ -5,6 +5,7 @@ import type { FormEvent } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { compresserImage } from "@/lib/images/compresser";
 import { creerProduitAction } from "./actions";
+import { boutonPrimaire, carte, champ, erreurTexte, etiquette } from "@/components/ui/styles";
 
 export function AjouterProduitForm({ boutiqueId }: { boutiqueId: string }) {
   const [supabase] = useState(() => createClient());
@@ -65,45 +66,25 @@ export function AjouterProduitForm({ boutiqueId }: { boutiqueId: string }) {
   }
 
   return (
-    <form
-      ref={formRef}
-      onSubmit={onSubmit}
-      className="space-y-4 rounded-2xl bg-white p-6 shadow-sm dark:bg-zinc-900"
-    >
-      <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-        Ajouter un produit
-      </h2>
+    <form ref={formRef} onSubmit={onSubmit} className={`space-y-4 ${carte}`}>
+      <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-50">Ajouter un produit</h2>
 
       <div>
-        <label htmlFor="photo" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+        <label htmlFor="photo" className={etiquette}>
           Photo
         </label>
-        <input
-          id="photo"
-          name="photo"
-          type="file"
-          accept="image/*"
-          required
-          className="mt-1 w-full text-sm"
-        />
+        <input id="photo" name="photo" type="file" accept="image/*" required className="mt-1 w-full text-sm" />
       </div>
 
       <div>
-        <label htmlFor="nom" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+        <label htmlFor="nom" className={etiquette}>
           Nom du produit
         </label>
-        <input
-          id="nom"
-          name="nom"
-          type="text"
-          required
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800"
-          placeholder="Ex: Robe wax bleue"
-        />
+        <input id="nom" name="nom" type="text" required className={`mt-1 ${champ}`} placeholder="Ex: Robe wax bleue" />
       </div>
 
       <div>
-        <label htmlFor="prix" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+        <label htmlFor="prix" className={etiquette}>
           Prix (FCFA)
         </label>
         <input
@@ -113,49 +94,34 @@ export function AjouterProduitForm({ boutiqueId }: { boutiqueId: string }) {
           min={0}
           step={1}
           required
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800"
+          className={`mt-1 ${champ}`}
           placeholder="Ex: 15000"
         />
       </div>
 
       <div>
-        <label
-          htmlFor="description"
-          className="block text-sm font-medium text-zinc-700 dark:text-zinc-300"
-        >
+        <label htmlFor="description" className={etiquette}>
           Description (optionnel)
         </label>
-        <input
-          id="description"
-          name="description"
-          type="text"
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800"
-        />
+        <input id="description" name="description" type="text" className={`mt-1 ${champ}`} />
       </div>
 
       <div>
-        <label
-          htmlFor="variantes"
-          className="block text-sm font-medium text-zinc-700 dark:text-zinc-300"
-        >
+        <label htmlFor="variantes" className={etiquette}>
           Variantes (optionnel)
         </label>
         <input
           id="variantes"
           name="variantes"
           type="text"
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800"
+          className={`mt-1 ${champ}`}
           placeholder="Ex: S/M/L ou Rouge/Noir"
         />
       </div>
 
-      {erreur && <p className="text-sm text-red-600">{erreur}</p>}
+      {erreur && <p className={erreurTexte}>{erreur}</p>}
 
-      <button
-        type="submit"
-        disabled={enCours}
-        className="w-full rounded-lg bg-zinc-900 px-4 py-2.5 text-base font-medium text-white disabled:opacity-50 dark:bg-zinc-50 dark:text-zinc-900"
-      >
+      <button type="submit" disabled={enCours} className={boutonPrimaire}>
         {enCours ? "Ajout en cours..." : "Ajouter le produit"}
       </button>
     </form>

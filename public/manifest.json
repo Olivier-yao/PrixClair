@@ -1,11 +1,11 @@
 {
   "name": "PrixClair",
   "short_name": "PrixClair",
-  "description": "Cree un catalogue produits clair a partir de tes photos et prix.",
+  "description": "Genere une fiche de presentation et un recu de paiement pour chaque vente.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#111827",
+  "background_color": "#fff7ed",
+  "theme_color": "#c2410c",
   "orientation": "portrait",
   "icons": [
     {

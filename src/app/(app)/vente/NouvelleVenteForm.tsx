@@ -7,8 +7,19 @@ import { createClient } from "@/lib/supabase/client";
 import { compresserImage } from "@/lib/images/compresser";
 import type { ModePaiement, ZoneLivraison } from "@/lib/data/types";
 import { creerVenteAction } from "./actions";
+import { boutonPrimaire, boutonSecondaire, carte, champ, erreurTexte, etiquette } from "@/components/ui/styles";
 
 const MODES_PAIEMENT: ModePaiement[] = ["Wave", "Orange Money", "Especes", "Autre"];
+
+function IndicateurEtape({ etape }: { etape: 1 | 2 }) {
+  return (
+    <div className="flex items-center gap-2 text-xs font-medium text-stone-500 dark:text-stone-400">
+      <span className={etape === 1 ? "text-orange-600" : ""}>1. Produit</span>
+      <span className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
+      <span className={etape === 2 ? "text-orange-600" : ""}>2. Livraison &amp; client</span>
+    </div>
+  );
+}
 
 export function NouvelleVenteForm({
   boutiqueId,
@@ -108,11 +119,11 @@ export function NouvelleVenteForm({
 
   if (etape === 1) {
     return (
-      <form onSubmit={validerEtape1} className="space-y-4 rounded-2xl bg-white p-6 shadow-sm dark:bg-zinc-900">
-        <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">1. Le produit</h2>
+      <form onSubmit={validerEtape1} className={`space-y-4 ${carte}`}>
+        <IndicateurEtape etape={1} />
 
         <div>
-          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Photo</label>
+          <label className={etiquette}>Photo</label>
           <input
             type="file"
             accept="image/*"
@@ -123,19 +134,19 @@ export function NouvelleVenteForm({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Nom du produit</label>
+          <label className={etiquette}>Nom du produit</label>
           <input
             type="text"
             required
             value={nom}
             onChange={(e) => setNom(e.target.value)}
             placeholder="Ex: Robe wax bleue"
-            className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800"
+            className={`mt-1 ${champ}`}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Prix (FCFA)</label>
+          <label className={etiquette}>Prix (FCFA)</label>
           <input
             type="number"
             min={0}
@@ -144,41 +155,34 @@ export function NouvelleVenteForm({
             value={prix}
             onChange={(e) => setPrix(e.target.value)}
             placeholder="Ex: 15000"
-            className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800"
+            className={`mt-1 ${champ}`}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-            Description (optionnel)
-          </label>
+          <label className={etiquette}>Description (optionnel)</label>
           <input
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800"
+            className={`mt-1 ${champ}`}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-            Variante (optionnel)
-          </label>
+          <label className={etiquette}>Variante (optionnel)</label>
           <input
             type="text"
             value={variantes}
             onChange={(e) => setVariantes(e.target.value)}
             placeholder="Ex: Taille M, Rouge"
-            className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800"
+            className={`mt-1 ${champ}`}
           />
         </div>
 
-        {erreur && <p className="text-sm text-red-600">{erreur}</p>}
+        {erreur && <p className={erreurTexte}>{erreur}</p>}
 
-        <button
-          type="submit"
-          className="w-full rounded-lg bg-zinc-900 px-4 py-2.5 text-base font-medium text-white dark:bg-zinc-50 dark:text-zinc-900"
-        >
+        <button type="submit" className={boutonPrimaire}>
           Suivant
         </button>
       </form>
@@ -186,13 +190,11 @@ export function NouvelleVenteForm({
   }
 
   return (
-    <form onSubmit={validerVente} className="space-y-4 rounded-2xl bg-white p-6 shadow-sm dark:bg-zinc-900">
-      <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-        2. Livraison, client et paiement
-      </h2>
+    <form onSubmit={validerVente} className={`space-y-4 ${carte}`}>
+      <IndicateurEtape etape={2} />
 
       <div>
-        <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Quantite</label>
+        <label className={etiquette}>Quantite</label>
         <input
           type="number"
           name="quantite"
@@ -200,19 +202,13 @@ export function NouvelleVenteForm({
           step={1}
           defaultValue={1}
           required
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800"
+          className={`mt-1 ${champ}`}
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-          Zone de livraison
-        </label>
-        <select
-          name="zone"
-          required
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800"
-        >
+        <label className={etiquette}>Zone de livraison</label>
+        <select name="zone" required className={`mt-1 ${champ}`}>
           {zonesLivraison.map((zone) => (
             <option key={zone.nom} value={zone.nom}>
               {zone.nom} ({zone.prix.toLocaleString("fr-FR")} FCFA)
@@ -222,36 +218,18 @@ export function NouvelleVenteForm({
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Nom du client</label>
-        <input
-          type="text"
-          name="client_nom"
-          required
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800"
-        />
+        <label className={etiquette}>Nom du client</label>
+        <input type="text" name="client_nom" required className={`mt-1 ${champ}`} />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-          Telephone du client
-        </label>
-        <input
-          type="tel"
-          name="client_telephone"
-          required
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800"
-        />
+        <label className={etiquette}>Telephone du client</label>
+        <input type="tel" name="client_telephone" required className={`mt-1 ${champ}`} />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-          Mode de paiement
-        </label>
-        <select
-          name="mode_paiement"
-          required
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-800"
-        >
+        <label className={etiquette}>Mode de paiement</label>
+        <select name="mode_paiement" required className={`mt-1 ${champ}`}>
           {MODES_PAIEMENT.map((mode) => (
             <option key={mode} value={mode}>
               {mode}
@@ -260,21 +238,13 @@ export function NouvelleVenteForm({
         </select>
       </div>
 
-      {erreur && <p className="text-sm text-red-600">{erreur}</p>}
+      {erreur && <p className={erreurTexte}>{erreur}</p>}
 
       <div className="flex gap-3">
-        <button
-          type="button"
-          onClick={() => setEtape(1)}
-          className="flex-1 rounded-lg border border-zinc-300 px-4 py-2.5 text-base font-medium text-zinc-700 dark:border-zinc-700 dark:text-zinc-300"
-        >
+        <button type="button" onClick={() => setEtape(1)} className={boutonSecondaire}>
           Retour
         </button>
-        <button
-          type="submit"
-          disabled={enCours}
-          className="flex-1 rounded-lg bg-zinc-900 px-4 py-2.5 text-base font-medium text-white disabled:opacity-50 dark:bg-zinc-50 dark:text-zinc-900"
-        >
+        <button type="submit" disabled={enCours} className={boutonPrimaire}>
           {enCours ? "Validation..." : "Valider la vente"}
         </button>
       </div>

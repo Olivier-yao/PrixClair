@@ -5,6 +5,7 @@ import Image from "next/image";
 import { formatFcfa } from "@/lib/format";
 import { marquerRuptureAction, supprimerProduitAction } from "./actions";
 import type { Produit } from "@/lib/data/types";
+import { carte } from "@/components/ui/styles";
 
 export function ProduitLigne({ produit }: { produit: Produit }) {
   const [enTransition, demarrerTransition] = useTransition();
@@ -13,7 +14,7 @@ export function ProduitLigne({ produit }: { produit: Produit }) {
   if (supprime) return null;
 
   return (
-    <li className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-900">
+    <li className={`flex items-center gap-4 ${carte} !p-4`}>
       {produit.photo_url && (
         <Image
           src={produit.photo_url}
@@ -25,14 +26,14 @@ export function ProduitLigne({ produit }: { produit: Produit }) {
         />
       )}
       <div className="min-w-0 flex-1">
-        <p className="truncate font-medium text-zinc-900 dark:text-zinc-50">{produit.nom}</p>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">{formatFcfa(produit.prix)}</p>
+        <p className="truncate font-medium text-stone-900 dark:text-stone-50">{produit.nom}</p>
+        <p className="text-sm text-stone-600 dark:text-stone-400">{formatFcfa(produit.prix)}</p>
         {produit.variantes && (
-          <p className="truncate text-xs text-zinc-500 dark:text-zinc-500">{produit.variantes}</p>
+          <p className="truncate text-xs text-stone-500 dark:text-stone-500">{produit.variantes}</p>
         )}
       </div>
       <div className="flex flex-col items-end gap-2">
-        <label className="flex items-center gap-1.5 text-xs text-zinc-600 dark:text-zinc-400">
+        <label className="flex items-center gap-1.5 text-xs text-stone-600 dark:text-stone-400">
           <input
             type="checkbox"
             defaultChecked={produit.en_rupture}
@@ -52,7 +53,7 @@ export function ProduitLigne({ produit }: { produit: Produit }) {
               setSupprime(true);
             })
           }
-          className="text-xs text-red-600 underline disabled:opacity-50"
+          className="text-xs text-red-600 underline disabled:opacity-50 dark:text-red-400"
         >
           Supprimer
         </button>

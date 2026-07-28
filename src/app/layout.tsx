@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "PrixClair",
-  description: "Cree un catalogue produits clair a partir de tes photos et prix.",
+  description: "Genere une fiche de presentation et un recu de paiement pour chaque vente.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#111827",
+  themeColor: "#c2410c",
   width: "device-width",
   initialScale: 1,
 };
