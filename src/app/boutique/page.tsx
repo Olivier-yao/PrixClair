@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getBoutique } from "@/lib/data/boutiques";
@@ -25,9 +26,14 @@ export default async function BoutiquePage() {
               {boutique.nom}
             </h1>
             <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-              Boutique enregistree. La suite (produits, livraison, catalogue) arrive aux
-              prochaines etapes.
+              Boutique enregistree. La livraison et le catalogue arrivent aux prochaines etapes.
             </p>
+            <Link
+              href="/produits"
+              className="mt-4 block w-full rounded-lg bg-zinc-900 px-4 py-2.5 text-center text-base font-medium text-white dark:bg-zinc-50 dark:text-zinc-900"
+            >
+              Gerer mes produits
+            </Link>
           </>
         ) : (
           <>
