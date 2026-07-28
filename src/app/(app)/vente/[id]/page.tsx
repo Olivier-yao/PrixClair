@@ -1,11 +1,13 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { getBoutique } from "@/lib/data/boutiques";
 import { obtenirVente } from "@/lib/data/ventes";
 import { formatFcfa } from "@/lib/format";
 import { DIMENSIONS_DOCUMENT } from "@/lib/documents/commun";
 import { Conteneur } from "@/components/ui/Conteneur";
 import { boutonPrimaire, boutonSecondaire, carte } from "@/components/ui/styles";
+import { RecuTicket } from "./RecuTicket";
 
 export default async function VenteConfirmeePage({
   params,
@@ -15,6 +17,9 @@ export default async function VenteConfirmeePage({
   const { id } = await params;
   const vente = await obtenirVente(id);
   if (!vente) notFound();
+
+  const boutique = await getBoutique();
+  if (!boutique) redirect("/boutique");
 
   const { width, height } = DIMENSIONS_DOCUMENT;
 
@@ -51,14 +56,7 @@ export default async function VenteConfirmeePage({
 
       <section className="space-y-3">
         <h2 className="text-sm font-medium text-stone-700 dark:text-stone-300">Recu de paiement</h2>
-        <Image
-          src={`/vente/${vente.id}/recu?apercu=1`}
-          alt="Apercu recu de paiement"
-          width={width}
-          height={height}
-          unoptimized
-          className="w-full rounded-2xl border border-orange-100 dark:border-stone-800"
-        />
+        <RecuTicket boutique={boutique} vente={vente} />
         <a href={`/vente/${vente.id}/recu`} className={boutonSecondaire}>
           Telecharger le recu (PDF)
         </a>
