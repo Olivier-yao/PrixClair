@@ -21,7 +21,7 @@ export default async function VenteConfirmeePage({
   return (
     <Conteneur>
       <div className={`text-center ${carte}`}>
-        <p className="text-sm font-semibold uppercase tracking-wide text-orange-600">
+        <p className="text-sm font-semibold uppercase tracking-wide text-orange-700">
           Vente enregistree
         </p>
         <h1 className="mt-1 text-xl font-semibold text-stone-900 dark:text-stone-50">

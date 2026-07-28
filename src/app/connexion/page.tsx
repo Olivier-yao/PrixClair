@@ -49,7 +49,7 @@ export default function ConnexionPage() {
   return (
     <div className="flex flex-1 items-center justify-center bg-orange-50 px-6 dark:bg-stone-950">
       <main className={`w-full max-w-sm ${carte}`}>
-        <div className="mb-6 text-center text-xl font-bold text-orange-600">PrixClair</div>
+        <div className="mb-6 text-center text-xl font-bold text-orange-700">PrixClair</div>
         <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-50">Connexion</h1>
         <p className="mt-2 text-sm text-stone-600 dark:text-stone-400">
           {etape === "telephone"

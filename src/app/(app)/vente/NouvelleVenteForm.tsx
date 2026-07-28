@@ -14,9 +14,9 @@ const MODES_PAIEMENT: ModePaiement[] = ["Wave", "Orange Money", "Especes", "Autr
 function IndicateurEtape({ etape }: { etape: 1 | 2 }) {
   return (
     <div className="flex items-center gap-2 text-xs font-medium text-stone-500 dark:text-stone-400">
-      <span className={etape === 1 ? "text-orange-600" : ""}>1. Produit</span>
+      <span className={etape === 1 ? "text-orange-700" : ""}>1. Produit</span>
       <span className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
-      <span className={etape === 2 ? "text-orange-600" : ""}>2. Livraison &amp; client</span>
+      <span className={etape === 2 ? "text-orange-700" : ""}>2. Livraison &amp; client</span>
     </div>
   );
 }
@@ -123,8 +123,11 @@ export function NouvelleVenteForm({
         <IndicateurEtape etape={1} />
 
         <div>
-          <label className={etiquette}>Photo</label>
+          <label htmlFor="v-photo" className={etiquette}>
+            Photo
+          </label>
           <input
+            id="v-photo"
             type="file"
             accept="image/*"
             required
@@ -134,8 +137,11 @@ export function NouvelleVenteForm({
         </div>
 
         <div>
-          <label className={etiquette}>Nom du produit</label>
+          <label htmlFor="v-nom" className={etiquette}>
+            Nom du produit
+          </label>
           <input
+            id="v-nom"
             type="text"
             required
             value={nom}
@@ -146,8 +152,11 @@ export function NouvelleVenteForm({
         </div>
 
         <div>
-          <label className={etiquette}>Prix (FCFA)</label>
+          <label htmlFor="v-prix" className={etiquette}>
+            Prix (FCFA)
+          </label>
           <input
+            id="v-prix"
             type="number"
             min={0}
             step={1}
@@ -160,8 +169,11 @@ export function NouvelleVenteForm({
         </div>
 
         <div>
-          <label className={etiquette}>Description (optionnel)</label>
+          <label htmlFor="v-description" className={etiquette}>
+            Description (optionnel)
+          </label>
           <input
+            id="v-description"
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -170,8 +182,11 @@ export function NouvelleVenteForm({
         </div>
 
         <div>
-          <label className={etiquette}>Variante (optionnel)</label>
+          <label htmlFor="v-variantes" className={etiquette}>
+            Variante (optionnel)
+          </label>
           <input
+            id="v-variantes"
             type="text"
             value={variantes}
             onChange={(e) => setVariantes(e.target.value)}
@@ -194,8 +209,11 @@ export function NouvelleVenteForm({
       <IndicateurEtape etape={2} />
 
       <div>
-        <label className={etiquette}>Quantite</label>
+        <label htmlFor="v-quantite" className={etiquette}>
+          Quantite
+        </label>
         <input
+          id="v-quantite"
           type="number"
           name="quantite"
           min={1}
@@ -207,8 +225,10 @@ export function NouvelleVenteForm({
       </div>
 
       <div>
-        <label className={etiquette}>Zone de livraison</label>
-        <select name="zone" required className={`mt-1 ${champ}`}>
+        <label htmlFor="v-zone" className={etiquette}>
+          Zone de livraison
+        </label>
+        <select id="v-zone" name="zone" required className={`mt-1 ${champ}`}>
           {zonesLivraison.map((zone) => (
             <option key={zone.nom} value={zone.nom}>
               {zone.nom} ({zone.prix.toLocaleString("fr-FR")} FCFA)
@@ -218,18 +238,24 @@ export function NouvelleVenteForm({
       </div>
 
       <div>
-        <label className={etiquette}>Nom du client</label>
-        <input type="text" name="client_nom" required className={`mt-1 ${champ}`} />
+        <label htmlFor="v-client-nom" className={etiquette}>
+          Nom du client
+        </label>
+        <input id="v-client-nom" type="text" name="client_nom" required className={`mt-1 ${champ}`} />
       </div>
 
       <div>
-        <label className={etiquette}>Telephone du client</label>
-        <input type="tel" name="client_telephone" required className={`mt-1 ${champ}`} />
+        <label htmlFor="v-client-tel" className={etiquette}>
+          Telephone du client
+        </label>
+        <input id="v-client-tel" type="tel" name="client_telephone" required className={`mt-1 ${champ}`} />
       </div>
 
       <div>
-        <label className={etiquette}>Mode de paiement</label>
-        <select name="mode_paiement" required className={`mt-1 ${champ}`}>
+        <label htmlFor="v-mode-paiement" className={etiquette}>
+          Mode de paiement
+        </label>
+        <select id="v-mode-paiement" name="mode_paiement" required className={`mt-1 ${champ}`}>
           {MODES_PAIEMENT.map((mode) => (
             <option key={mode} value={mode}>
               {mode}

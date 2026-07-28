@@ -66,6 +66,7 @@ export function ZonesLivraisonForm({
               value={zone.nom}
               onChange={(e) => modifierNom(index, e.target.value)}
               placeholder="Nom de la zone"
+              aria-label={`Nom de la zone ${index + 1}`}
               className={`min-w-0 flex-1 ${champ}`}
             />
             <input
@@ -75,6 +76,7 @@ export function ZonesLivraisonForm({
               value={zone.prix}
               onChange={(e) => modifierPrix(index, e.target.value)}
               placeholder="Prix"
+              aria-label={`Prix de livraison pour la zone ${index + 1}`}
               className={`w-28 ${champ}`}
             />
             <button
