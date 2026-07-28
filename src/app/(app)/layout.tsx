@@ -18,7 +18,8 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           <Link href="/boutique">Boutique</Link>
           <Link href="/produits">Produits</Link>
           <Link href="/livraison">Livraison</Link>
-          <Link href="/catalogue">Catalogue</Link>
+          <Link href="/vente">Nouvelle vente</Link>
+          <Link href="/ventes">Historique</Link>
         </div>
         <DeconnexionButton />
       </nav>

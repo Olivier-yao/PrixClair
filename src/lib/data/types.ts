@@ -25,3 +25,31 @@ export type Produit = {
   created_at: string;
   updated_at: string;
 };
+
+export type ModePaiement = "Wave" | "Orange Money" | "Especes" | "Autre";
+
+export type Vente = {
+  id: string;
+  boutique_id: string;
+  numero: string;
+
+  produit_nom: string;
+  produit_prix: number;
+  produit_photo_url: string | null;
+  produit_description: string | null;
+  produit_variantes: string | null;
+  quantite: number;
+
+  zone_livraison_nom: string;
+  zone_livraison_prix: number;
+
+  client_nom: string;
+  client_telephone: string;
+  mode_paiement: ModePaiement;
+
+  montant_produits: number;
+  montant_livraison: number;
+  montant_total: number;
+
+  created_at: string;
+};
