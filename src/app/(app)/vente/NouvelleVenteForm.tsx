@@ -11,12 +11,39 @@ import { boutonPrimaire, boutonSecondaire, carte, champ, erreurTexte, etiquette 
 
 const MODES_PAIEMENT: ModePaiement[] = ["Wave", "Orange Money", "Especes", "Autre"];
 
+function Pastille({ numero, label, actif, termine }: { numero: string; label: string; actif: boolean; termine: boolean }) {
+  return (
+    <div className="flex flex-col items-center gap-1.5">
+      <div
+        className={`flex h-11 w-11 items-center justify-center rounded-full text-lg font-bold ${
+          actif
+            ? "bg-orange-700 text-white"
+            : termine
+              ? "bg-orange-100 text-orange-700 dark:bg-stone-800 dark:text-orange-400"
+              : "bg-stone-200 text-stone-500 dark:bg-stone-800 dark:text-stone-500"
+        }`}
+      >
+        {termine ? "✓" : numero}
+      </div>
+      <span
+        className={`text-xs font-semibold ${
+          actif ? "text-orange-700 dark:text-orange-400" : "text-stone-500 dark:text-stone-500"
+        }`}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
+
 function IndicateurEtape({ etape }: { etape: 1 | 2 }) {
   return (
-    <div className="flex items-center gap-2 text-xs font-medium text-stone-500 dark:text-stone-400">
-      <span className={etape === 1 ? "text-orange-700" : ""}>1. Produit</span>
-      <span className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
-      <span className={etape === 2 ? "text-orange-700" : ""}>2. Livraison &amp; client</span>
+    <div className="flex items-start">
+      <Pastille numero="1" label="Produit" actif={etape === 1} termine={etape === 2} />
+      <div
+        className={`mx-2 mt-5 h-1 flex-1 rounded-full ${etape === 2 ? "bg-orange-700" : "bg-stone-200 dark:bg-stone-800"}`}
+      />
+      <Pastille numero="2" label="Livraison" actif={etape === 2} termine={false} />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { getBoutique } from "@/lib/data/boutiques";
 import { obtenirVente } from "@/lib/data/ventes";
 import { construireRecuPaiement } from "@/lib/documents/recu";
 import { DIMENSIONS_DOCUMENT } from "@/lib/documents/commun";
+import { chargerPoliceRecu } from "@/lib/documents/polices";
 import { pngVersPdf } from "@/lib/pdf";
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -23,7 +24,8 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
   if (!boutique) return new Response("Boutique introuvable.", { status: 404 });
 
   const { width, height } = DIMENSIONS_DOCUMENT;
-  const image = new ImageResponse(construireRecuPaiement(boutique, vente), { width, height });
+  const fonts = await chargerPoliceRecu();
+  const image = new ImageResponse(construireRecuPaiement(boutique, vente), { width, height, fonts });
   const pngBuffer = Buffer.from(await image.arrayBuffer());
 
   if (apercu) {
