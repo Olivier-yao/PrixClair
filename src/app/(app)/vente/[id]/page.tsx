@@ -47,7 +47,7 @@ export default async function VenteConfirmeePage({
           width={width}
           height={height}
           unoptimized
-          className="w-full rounded-2xl border border-orange-100 dark:border-stone-800"
+          className="w-full rounded-2xl border border-orange-100 bg-orange-50 dark:border-stone-800 dark:bg-stone-900"
         />
         <a href={`/vente/${vente.id}/fiche`} className={boutonPrimaire}>
           Telecharger la fiche (PDF)

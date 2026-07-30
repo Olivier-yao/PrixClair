@@ -76,15 +76,15 @@ export function RecuTicket({ boutique, vente }: { boutique: Boutique; vente: Ven
 
           <LigneTicket label="PAIEMENT" valeur={vente.mode_paiement.toUpperCase()} />
 
-          <div className="relative mt-2 flex items-center justify-center">
-            <div className="text-base" style={{ color: TEXTE }}>
-              MERCI POUR VOTRE ACHAT
-            </div>
+          <div className="mt-2 flex flex-col items-center gap-3">
             <div
-              className="absolute -top-2 right-2 -rotate-6 rounded border-4 px-3 py-1 text-lg font-bold tracking-widest sm:right-6"
+              className="-rotate-6 rounded border-4 px-3 py-1 text-lg font-bold tracking-widest"
               style={{ borderColor: ROUGE, color: ROUGE }}
             >
               PAYE
+            </div>
+            <div className="text-center text-sm sm:text-base" style={{ color: TEXTE }}>
+              MERCI POUR VOTRE ACHAT
             </div>
           </div>
 
@@ -93,7 +93,7 @@ export function RecuTicket({ boutique, vente }: { boutique: Boutique; vente: Ven
             <img
               src={codeBarresDecoratif(vente.numero, 260, 46, TEXTE)}
               alt=""
-              className="h-[46px] w-[260px]"
+              className="h-auto w-full max-w-[200px]"
             />
             <div className="text-xs tracking-[0.3em]" style={{ color: MUTED }}>
               {vente.numero}
